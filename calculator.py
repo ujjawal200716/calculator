@@ -2,6 +2,7 @@ import tkinter as tk
 
 window = tk.Tk()
 window.title("Calculator")
+window.iconbitmap("keys.ico")
 
 def bu(num):
     cur = e1.get()
@@ -119,3 +120,4 @@ history.grid(row=5, column=2, columnspan=3, sticky="nsew")
 window.bind_all("<Key>", key_event)
 
 window.mainloop()
+
