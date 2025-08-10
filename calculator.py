@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
+
 
 window = tk.Tk()
 window.title("Calculator")
@@ -12,9 +14,23 @@ def bu(num):
 def cl():
     e1.delete(0, tk.END)
 
+from tkinter import messagebox
+
 def eq():
-    e = e1.get()    
-    cur1 = str(eval(e1.get()))
+    e = e1.get()
+    try:
+        if "/0" in e.replace(" ", ""):
+            messagebox.showerror("Error", "Division by zero is not allowed.")
+            return
+        cur1 = str(eval(e))
+        e1.delete(0, tk.END)
+        e1.insert(0, cur1)
+    except ZeroDivisionError:
+        messagebox.showerror("Error", "Division by zero is not allowed.")
+    except Exception:
+        messagebox.showerror("Error", "Invalid expression.")
+
+
     e1.delete(0, tk.END)
     e1.insert(0, cur1)
     file=open("history.txt", "a") 
@@ -56,7 +72,7 @@ def key_event(event):
         bu(char)
         return "break"    
 
-e1 = tk.Entry(window, width=18, font=("Arial", 20), bd=3 ,fg="white",bg="#3e3d3d",insertbackground="white", justify='right')
+e1 = tk.Entry(window, width=18, font=("Arial", 20),bd=2,fg="white",bg="#3e3d3d",insertbackground="white", justify='right')
 e1.grid(row=0, column=0, columnspan=5, sticky="nsew")
 
 
